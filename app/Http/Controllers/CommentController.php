@@ -2,12 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Post;
+use App\Comment;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Auth;
 
-class PostController extends Controller
+class CommentController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -37,40 +35,27 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'title'     => 'required',
-            'content'   => 'required'
-        ]);
-
-        Post::create($request->all());
-        return redirect()->route('home')
-        ->with('success','Postingan berhasil dibuat...');
-
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Comment $comment)
     {
-        $post = DB::table('posts')
-            ->join('users AS author', 'author.id', '=', 'posts.user_id')
-            ->select('posts.*', 'author.name AS author_name', 'author.email AS author_email')
-            ->where('posts.id', $id)
-            ->first();
-        return view('post.show',compact('post'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -79,10 +64,10 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Comment $comment)
     {
         //
     }
@@ -90,10 +75,10 @@ class PostController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Post  $post
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Comment $comment)
     {
         //
     }

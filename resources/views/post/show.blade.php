@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+
 <section class="forum-page">
     <div class="container">
         <div class="forum-questions-sec">
@@ -12,25 +13,15 @@
             <div class="col-lg-8">
             <div class="main-ws-sec">
                 <div class="posts-section">
-                <div class="post-topbar">
-                        <div class="user-picy">
-                            <img src="{{ asset('assets/images/resources/user-pic.png') }}" alt="">
-                        </div>
-                        <div class="post-st">
-                            <ul>
-                                <li><a class="post-jb active" href="#" title="">Tanya</a></li>
-                            </ul>
-                        </div><!--post-st end-->
-                    </div><!--post-topbar end-->
 
-                    @foreach ($posts as $row)
-                    <div class="post-bar">
+                    <div class="posty">
+                    <div class="post-bar no-margin">
                         <div class="post_topbar">
                             <div class="usy-dt">
                                 <img src="{{ asset('assets/images/resources/us-pic.png') }}" alt="">
                                 <div class="usy-name">
-                                    <h3>{{ $row->author_name }}</h3>
-                                    <span><img src="{{ asset('assets/images/clock.png') }}" alt="">{{ Carbon\Carbon::parse($row->created_at)->diffForHumans() }}</span>
+                                    <h3>{{ $post->author_name }}</h3>
+                                    <span><img src="{{ asset('assets/images/clock.png') }}" alt="">{{ Carbon\Carbon::parse($post->created_at)->diffForHumans() }}</span>
                                 </div>
                             </div>
                             <div class="ed-opts">
@@ -45,11 +36,11 @@
                             </div>
                         </div>
                         <div class="job_descp" style="margin-top:30px">
-                            <h3>{{ $row->title }}</h3>
+                            <h3>{{ $post->title }}</h3>
                             <ul class="job-dt">
                                 <li><a href="#" title="">Full Time</a></li>
                             </ul>
-                            <p>{{ $row->content }}</p>
+                            <p>{{ $post->content }}</p>
                             <ul class="skill-tags">
                                 <li><a href="#" title="">HTML</a></li>
                                 <li><a href="#" title="">PHP</a></li>
@@ -58,21 +49,54 @@
                                 <li><a href="#" title="">Wordpress</a></li> 	
                             </ul>
                         </div>
-                        <div class="job-status-bar">
-                            <a href="{{ route('post.show',$row->id) }}" class="com"><i class="fas fa-comment-alt"></i> Comments 15</a>
-                        </div>
                     </div><!--post-bar end-->
-
-                    @endforeach
-                   
-                  
-                    <div class="process-comm">
-                        <div class="spinner">
-                            <div class="bounce1"></div>
-                            <div class="bounce2"></div>
-                            <div class="bounce3"></div>
-                        </div>
-                    </div><!--process-comm end-->
+                        <div class="comment-section">
+                            <a href="#" class="plus-ic">
+                                <i class="la la-plus"></i>
+                            </a>
+                            <div class="comment-sec">
+                                <ul>
+                                <li>
+                                    <div class="comment-list">
+                                            <div class="bg-img">
+                                                <img src="{{ asset('assets/images/resources/bg-img3.png') }}" alt="">
+                                            </div>
+                                            <div class="comment">
+                                                <h3>John Doe</h3>
+                                                <span><img src="{{ asset('assets/images/clock.png') }}" alt=""> 3 min ago</span>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at.</p>
+                                                <a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
+                                            </div>
+                                        </div><!--comment-list end-->
+                                    </li>
+                                    <li>
+                                        <div class="comment-list">
+                                            <div class="bg-img">
+                                                <img src="{{ asset('assets/images/resources/bg-img3.png') }}" alt="">
+                                            </div>
+                                            <div class="comment">
+                                                <h3>John Doe</h3>
+                                                <span><img src="{{ asset('assets/images/clock.png') }}" alt=""> 3 min ago</span>
+                                                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam luctus hendrerit metus, ut ullamcorper quam finibus at.</p>
+                                                <a href="#" title=""><i class="fa fa-reply-all"></i>Reply</a>
+                                            </div>
+                                        </div><!--comment-list end-->
+                                    </li>
+                                </ul>
+                            </div><!--comment-sec end-->
+                            <div class="post-comment">
+                                <div class="cm_img">
+                                    <img src="{{ asset('assets/images/resources/bg-img4.png') }}" alt="">
+                                </div>
+                                <div class="comment_box">
+                                    <form>
+                                        <input type="text" placeholder="Post a comment">
+                                        <button type="submit">Send</button>
+                                    </form>
+                                </div>
+                            </div><!--post-comment end-->
+                        </div><!--comment-section end-->
+                    </div><!--posty end-->
                 </div><!--posts-section end-->
             </div><!--main-ws-sec end-->
         </div>
@@ -139,31 +163,4 @@
     </div>
 </section><!--forum-page end-->
 
-<div class="post-popup job_post">
-    <div class="post-project">
-        <h3>Pertanyaan</h3>
-        <div class="post-project-fields">
-            <form action="{{ route('post.store') }}" method="post">
-            @csrf
-                <div class="row">
-                    <div class="col-lg-12">
-                        <input type="text" name="title" placeholder="Judul">
-                    </div>
-                    <div class="col-lg-12">
-                        <textarea name="content" placeholder="Konten"></textarea>
-                    </div>
-                    <input type="hidden" value="{{ Auth::user()->id }}" name="user_id">
-                    <div class="col-lg-12">
-                        <ul>
-                            <li><a href="#" title="">Batal</a></li>
-                            <li><button class="active" type="submit" value="post">Kirim</button></li>
-                        </ul>
-                    </div>
-                </div>
-            </form>
-        </div><!--post-project-fields end-->
-        <a href="#" title=""><i class="la la-times-circle-o"></i></a>
-    </div><!--post-project end-->
-</div><!--post-project-popup end-->
-        
 @endsection
