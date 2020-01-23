@@ -35,7 +35,12 @@ class CommentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'comment'  => 'required',
+        ]);
+
+        Comment::create($request->all());
+        return redirect(route('post.show',$request->post_id))->with(['success' => 'Data Baru Ditambahkan']);
     }
 
     /**

@@ -61,8 +61,25 @@ class PostController extends Controller
             ->select('posts.*', 'author.name AS author_name', 'author.email AS author_email')
             ->where('posts.id', $id)
             ->first();
-        return view('post.show',compact('post'));
+
+        $comment = DB::table('comments')
+            ->join('users AS comantators', 'comantators.id', '=', 'comments.user_id')
+            ->select('comments.*', 'comantators.name AS comment_name')
+            ->where('comments.post_id', $id)
+            ->get();
+
+        $users = DB::table('users')
+            ->join('posts', 'posts.user_id', '=', 'users.id')
+            ->select('users.*', DB::raw("count(posts.id) as count"))
+            ->orderBy('count', 'DESC')
+            ->groupBy('users.id')
+            ->skip(0)
+            ->take(4)
+            ->get();
+
+        return view('post.show',compact('post', 'comment', 'users'));
     }
+    
 
     /**
      * Show the form for editing the specified resource.

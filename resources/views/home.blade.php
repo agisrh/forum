@@ -46,9 +46,7 @@
                         </div>
                         <div class="job_descp" style="margin-top:30px">
                             <h3>{{ $row->title }}</h3>
-                            <ul class="job-dt">
-                                <li><a href="#" title="">Full Time</a></li>
-                            </ul>
+                            
                             <p>{{ $row->content }}</p>
                             <ul class="skill-tags">
                                 <li><a href="#" title="">HTML</a></li>
@@ -59,7 +57,7 @@
                             </ul>
                         </div>
                         <div class="job-status-bar">
-                            <a href="{{ route('post.show',$row->id) }}" class="com"><i class="fas fa-comment-alt"></i> Comments 15</a>
+                            <a href="{{ route('post.show',$row->id) }}" class="com"><i class="fas fa-comment-alt"></i> {{ $row->count }} Komentar</a>
                         </div>
                     </div><!--post-bar end-->
 
@@ -78,60 +76,26 @@
         </div>
                 <div class="col-lg-4">
                     <div class="widget widget-user">
-                        <h3 class="title-wd">Top User of the Week</h3>
+                        <h3 class="title-wd">Top Member</h3>
                         <ul>
+                            @foreach ($users as $row)
                             <li>
                                 <div class="usr-msg-details">
                                     <div class="usr-ms-img">
                                         <img src="{{ asset('assets/images/resources/m-img1.png') }}" alt="">
                                     </div>
                                     <div class="usr-mg-info">
-                                        <h3>Jessica William</h3>
-                                        <p>Graphic Designer </p>
+                                        <h3>{{ $row->name }}</h3>
+                                        <p>{{ $row->email }} </p>
                                     </div><!--usr-mg-info end-->
                                 </div>
-                                <span><img src="{{ asset('assets/images/price1.png') }}" alt="">1185</span>
+                                <span><img src="{{ asset('assets/images/price1.png') }}" alt="">{{ $row->count }}</span>
                             </li>
-                            <li>
-                                <div class="usr-msg-details">
-                                    <div class="usr-ms-img">
-                                        <img src="{{ asset('assets/images/resources/m-img2.png') }}" alt="">
-                                    </div>
-                                    <div class="usr-mg-info">
-                                        <h3>John Doe</h3>
-                                        <p>PHP Developer</p>
-                                    </div><!--usr-mg-info end-->
-                                </div>
-                                <span><img src="{{ asset('assets/images/price2.png') }}" alt="">1165</span>
-                            </li>
-                            <li>
-                                <div class="usr-msg-details">
-                                    <div class="usr-ms-img">
-                                        <img src="{{ asset('assets/images/resources/m-img3.png') }}" alt="">
-                                    </div>
-                                    <div class="usr-mg-info">
-                                        <h3>Poonam</h3>
-                                        <p>Wordpress Developer </p>
-                                    </div><!--usr-mg-info end-->
-                                </div>
-                                <span><img src="{{ asset('assets/images/price3.png') }}" alt="">1120</span>
-                            </li>
-                            <li>
-                                <div class="usr-msg-details">
-                                    <div class="usr-ms-img">
-                                        <img src="{{ asset('assets/images/resources/m-img4.png') }}" alt="">
-                                    </div>
-                                    <div class="usr-mg-info">
-                                        <h3>Bill Gates</h3>
-                                        <p>C & C++ Developer </p>
-                                    </div><!--usr-mg-info end-->
-                                </div>
-                                <span><img src="{{ asset('assets/images/price4.png') }}" alt="">1009</span>
-                            </li>
+                            @endforeach
                         </ul>
                     </div><!--widget-user end-->
                     <div class="widget widget-adver">
-                        <img src="{{ asset('assets/images/resources/adver-img.png') }}" alt="">
+                        <img src="{{ asset('assets/images/sttdb.png') }}" alt="">
                     </div><!--widget-adver end-->
                 </div>
             </div>
